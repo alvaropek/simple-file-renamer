@@ -73,12 +73,15 @@ def rename_files(old_names_list, new_names_list, log_callback, ask_if_overwrite_
                 log_callback(f"Error: File {old_name} not found.")
                 not_found_files.append(old_name)
     
+    def clean_output(string):
+        return string.replace("[", "").replace("]", "").replace("'", "")
+
     # Store and display results on GUI terminal           
     results_sum = [renamed_files, skipped_files, not_found_files, overwritten_files]
-    log_callback(f"Renamed files: {results_sum[0]}")
-    log_callback(f"Skipped files: {results_sum[1]}")
-    log_callback(f"Files not found: {results_sum[2]}")
-    log_callback(f"Overwritten files: {results_sum[3]}")
+    log_callback(clean_output(f"\nRenamed:  {results_sum[0]}"))
+    log_callback(clean_output(f"Skipped:  {results_sum[1]}"))
+    log_callback(clean_output(f"Not found:  {results_sum[2]}"))
+    log_callback(clean_output(f"Overwritten:  {results_sum[3]}\n"))
     
     # Reset overwrite to None for future actions
     overwrite = None
